@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #0a0a0a;
+    color: #f9fafb;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+}
+
+@layer components {
+  /* ── Animations ── */
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-shimmer-fast {
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+    background-size: 200% 100%;
+    animation: shimmer-swipe 1.2s infinite linear;
+  }
+  /* ── Glass card ── */
+  .glass {
+    @apply backdrop-blur-sm border border-white/[0.06];
+    background: rgba(255,255,255,0.035);
+  }
+
+  /* ── Sidebar item ── */
+  .sidebar-item {
+    @apply flex items-center gap-2 px-3 py-2 rounded-none text-sm cursor-pointer
+           transition-all duration-150 select-none;
+    color: #9ca3af;
+  }
+  .sidebar-item:hover { background: rgba(255,255,255,0.05); color: #f9fafb; }
+  .sidebar-item.active { background: rgba(16,185,129,0.12); color: #10b981; }
+
+  /* ── Input ── */
+  .llm-input {
+    @apply w-full bg-transparent outline-none resize-none text-sm leading-relaxed;
+    color: #f9fafb;
+    caret-color: #10b981;
+  }
+  .llm-input::placeholder { color: #6b7280; }
+
+  /* ── Button ── */
+  .btn-primary {
+    @apply flex items-center justify-center gap-2 px-4 py-2 rounded-none text-sm font-medium
+           transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed;
+    background: #10b981;
+    color: #000;
+  }
+  .btn-primary:hover:not(:disabled) { background: #059669; box-shadow: 0 0 20px rgba(16,185,129,0.3); }
+
+  .btn-ghost {
+    @apply flex items-center justify-center gap-2 px-3 py-2 rounded-none text-sm
+           transition-all duration-150;
+    color: #6b7280;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.07); color: #f9fafb; }
+
+  /* ── Code block ── */
+  .code-block {
+    @apply rounded-none overflow-hidden border;
+    border-color: rgba(255,255,255,0.08);
+    background: #141414;
+  }
+  .code-block-header {
+    @apply flex items-center justify-between px-4 py-2 text-xs font-mono;
+    background: #1a1a1a;
+    color: #6b7280;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ── System monitor bar ── */
+  .monitor-bar {
+    @apply h-1.5 rounded-full overflow-hidden;
+    background: rgba(255,255,255,0.08);
+  }
+  .monitor-fill {
+    @apply h-full rounded-full transition-all duration-500;
+  }
+
+  /* ── Typing cursor ── */
+  .typing-cursor::after {
+    content: '▋';
+    @apply animate-blink ml-0.5 text-accent;
+  }
+
+  /* ── Message bubble ── */
+  .msg-user {
+    background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+    border: 1px solid rgba(16,185,129,0.2);
+  }
+  .msg-assistant {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ── Markdown prose ── */
+  .prose-dark {
+    @apply text-sm leading-7;
+    color: #e5e7eb;
+  }
+  .prose-dark p { @apply mb-3 last:mb-0; }
+  .prose-dark ul { @apply list-disc pl-5 mb-3 space-y-1; }
+  .prose-dark ol { @apply list-decimal pl-5 mb-3 space-y-1; }
+  .prose-dark li { color: #d1d5db; }
+  .prose-dark strong { color: #f9fafb; font-weight: 600; }
+  .prose-dark em { color: #d1d5db; }
+  .prose-dark h1, .prose-dark h2, .prose-dark h3 {
+    @apply font-semibold mb-2 mt-4 first:mt-0;
+    color: #f9fafb;
+  }
+  .prose-dark h1 { @apply text-xl; }
+  .prose-dark h2 { @apply text-lg; }
+  .prose-dark h3 { @apply text-base; }
+  .prose-dark a { color: #10b981; text-decoration: underline; text-underline-offset: 2px; }
+  .prose-dark blockquote {
+    @apply pl-4 border-l-2 italic;
+    border-color: #10b981;
+    color: #9ca3af;
+  }
+  .prose-dark code {
+    @apply px-1.5 py-0.5 rounded text-xs font-mono;
+    background: rgba(255,255,255,0.08);
+    color: #86efac;
+  }
+  .prose-dark pre { @apply mb-4 last:mb-0; background: none !important; padding: 0 !important; }
+  .prose-dark table { @apply w-full border-collapse mb-4; }
+  .prose-dark th {
+    @apply px-3 py-2 text-left text-xs font-semibold;
+    color: #f9fafb;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .prose-dark td {
+    @apply px-3 py-2 text-xs;
+    color: #d1d5db;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ── Shimmer loading ── */
+  .animate-shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+    background-size: 200% 100%;
+    animation: shimmer-swipe 2s infinite linear;
+  }
+}
+
+@keyframes shimmer-swipe {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 0.8s step-end infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── KaTeX overrides ── */
+.katex { font-size: 1em !important; color: #e5e7eb; }
+.katex-display { @apply my-4 overflow-x-auto; }
