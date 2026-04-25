@@ -1,11 +1,1 @@
-{
-    "models_dir": "F:\\LLM\\tmp\\new_models_dir",
-    "memory": {
-        "short_term": "",
-        "long_term": "",
-        "permanent": ""
-    },
-    "gemini_api_key": "AIzaSyCzy1Q1cYhiJqt_BvImm3ZQym7xjBDJ7Do",
-    "assistant_name": "Aria",
-    "hf_token": ""
-}
+
